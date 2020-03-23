@@ -9,7 +9,7 @@ mongoose.Promise = global.Promise;
 const dotenv = require('dotenv');
 dotenv.config();
 
-mongoose.connect(process.env.DBURL)
+mongoose.connect(process.env.DBURL ,{ useNewUrlParser: true ,useUnifiedTopology: true })
   .then(() =>  console.log('connection succesful'))
   .catch((err) => console.error(err));
 
