@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Create Quiz</title>
+    <link rel='stylesheet' href='/assets/stylesheets/style.css' />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+    integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+        <a class="navbar-brand" href="#"><img class="mr-3" src="../assets/images/QuizUp_Logo.png" alt="" width="150" height="48"></a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <form class="form-inline">
+          <a href="/quizs"><button class="btn btn-outline-success" type="button">Quiz List</button></a>
+        </form>
+    </nav>
+
+    <div class="container">
+    <div style="margin-top: 6rem;">
+      <form action="/quizs/save" method="post" enctype="multipart/form-data">
+        <!-- name: String,
+        image_url: String,
+        question: [Schema.Types.Mixed],
+        publish: Boolean, -->
+          <div class="row">
+            <div class="col-6">
+              <div class="card">
+                <div class="card-header">
+                    Quiz Info
+                </div>
+                <div class="card-body">
+                  <div class="row">
+                  <div class="col-2">Name</div>
+                  <div class="col-6"><input type="text" name="name" class="form-control" maxlength="50" /></div>
+                  <div class="col-2">Publish</div>
+                  <div class="col-2"><label class="switch"><input class="form-control" type="checkbox" name="publish"><span class="slider round"></span></label></div>
+                </div>
+                <div class="row">
+                  <div class="col-12">
+                    <img id="preview" src="../assets/images/placeholder.png" alt="your image"  
+                    style="width: 300px;height: 200px;" />
+                    <input type="file" id="image_url" name="image_url"/>
+                  </div>
+                </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-6">
+              <div class="card">
+                <div class="card-header">
+                    Quiz Questions
+                    <button type="button" style="float: right;" id="myModal" class="btn btn-primary" data-toggle="modal" data-target="#questionModel">
+                      New Question
+                    </button>
+                </div>
+                <div class="card-body" >
+                  <div id="accordion" id="divQuestions">
+                    <div class="card">
+                      <div class="card-header" id="headingOne">
+                        <h5 class="mb-0">
+                          <button class="btn btn-link" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                            Collapsible Group Item #1
+                          </button>
+                        </h5>
+                      </div>
+                      <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
+                        <div class="card-body">
+                          Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+                        </div>
+                      </div>
+                      </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            </div>
+          <div class="col-6"><button type="submit" class="btn btn-success">Save</button></div>
+      </form>
+    </div>
+      
+    </div>
+<!-- Modal -->
+<div class="modal fade" id="questionModel" tabindex="-1" role="dialog" aria-labelledby="questionModelTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="row" style="margin-bottom: 10px;">
+          <div class="col-4">Question</div>
+          <div class="col-8"><input type="text" name="question" class="form-control" maxlength="50" /></div>
+          </div>
+          <div class="row" style="margin-bottom: 10px;">
+            <div class="col-4">Right Answer</div>
+            <div class="col-8"><input type="text" name="ans0" class="form-control" maxlength="50" /></div>
+          </div>
+          <div class="row" style="margin-bottom: 10px;">
+            <div class="col-4">wrong Answer1</div>
+            <div class="col-8"><input type="text" name="ans1" class="form-control" maxlength="50" /></div>
+          </div>
+          <div class="row" style="margin-bottom: 10px;">
+            <div class="col-4">wrong Answer2</div>
+            <div class="col-8"><input type="text" name="ans2" class="form-control" maxlength="50" /></div>
+          </div>
+          <div class="row" style="margin-bottom: 10px;">
+            <div class="col-4">wrong Answer3</div>
+            <div class="col-8"><input type="text" name="ans3" class="form-control" maxlength="50" /></div>
+          </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" id="btnSaveQuestion" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button"  id="btnSaveQuestion" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+  </body>
+  <script>
+    function readURL(input) {
+      if (input.files && input.files[0]) {
+        var reader = new FileReader();
+        
+        reader.onload = function(e) {
+          $('#preview').attr('src', e.target.result);
+        }
+        
+        reader.readAsDataURL(input.files[0]);
+      }
+    }
+
+    $("#image_url").change(function() {
+      readURL(this);
+    });
+    
+    $('#myModal').on('click', function () {
+      $('#questionModel').trigger('focus')
+    });
+    $('.collapse').collapse()
+
+    $('#btnSaveQuestion').on('shown.bs.modal', function () {
+      let html='<div class="card">'
+                      '<div class="card-header" id="headingOne">'+
+                        '<h5 class="mb-0">'+
+                          '<button class="btn btn-link" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">'+
+                         '   Collapsible Group Item #1'+
+                         ' </button>'+
+                       ' </h5>'+
+                     ' </div>'+
+                     '<div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">'+
+                   ' <div class="card-body">'+
+                    '  Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid.'+
+                    '3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt labo'+
+                    '</div>'+
+                  '</div>'+
+                '</div>';
+      $('#divQuestions').append(html);
+    });
+
+  </script>
+</html>

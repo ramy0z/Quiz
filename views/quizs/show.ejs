@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Quizs Detail</title>
+    <link rel='stylesheet' href='/assets/stylesheets/style.css' />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+    integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+      <a class="navbar-brand" href="#"><img class="mr-3" src="/assets/images/QuizUp_Logo.png" alt="" width="150" height="48"></a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <form class="form-inline">
+        <a href="/quizs"><button class="btn btn-outline-success" type="button">Quiz List</button></a>
+      </form>
+    </nav>
+    <div class="container" style="margin-top: 6rem;">
+      <table>
+        <tbody>
+          <tr>
+            <td>Name</td>
+            <td>:</td>
+            <td><%= quiz.name %></td>
+          </tr>
+          <tr>
+            <td>Address</td>
+            <td>:</td>
+            <td><%= quiz.address %></td>
+          </tr>
+          <tr>
+            <td>Position</td>
+            <td>:</td>
+            <td><%= quiz.position %></td>
+          </tr>
+          <tr>
+            <td>Salary</td>
+            <td>:</td>
+            <td>$<%= quiz.salary %>/year</td>
+          </tr>
+        </tbody>
+      </table>
+      <h3><a href="/quizs/edit/<%= quiz._id%>">EDIT</a></h3>
+      <form action="/quizs/delete/<%= quiz._id%>" method="post">
+        <button type="submit">DELETE</button>
+      </form>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %></title>
+    <link rel='stylesheet' href='/assets/stylesheets/style.css' />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  </head>
+  <body style="background-color: #465568;">
+    <div class="page-lock">
+        <div class="page-logo">
+            <a class="brand" href="/quizs">
+                <img style="width: 200px;" src="../assets/images/QuizUp_Logo.png" alt="logo"> </a>
+        </div>
+        <div class="page-body">
+            <div class="lock-head"> Locked </div>
+            <div class="lock-body">
+                <div class="lock-cont">
+                    <div class="lock-item">
+                        <div class="pull-left lock-avatar-block">
+                            <img src="../assets/images/avatar2.png" class="lock-avatar"> </div>
+                    </div>
+                    <div class="lock-item lock-item-full">
+                        <form class="lock-form pull-left" action="/quizs" method="Get">
+                            <h4>Teacher One</h4>
+                            <div class="form-group">
+                                <input class="form-control placeholder-no-fix" value="demo"
+                                type="password" autocomplete="off" placeholder="Password" id="password"> </div>
+                            <div class="form-actions">
+                                <button class="btn red uppercase">Start Over</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="lock-bottom">
+                <a href="">Not Teacher One ?</a>
+            </div>
+        </div>
+        <div class="page-footer-custom"> 2020 © Ramy Ezz. Quiz Template. </div>
+    </div>
+</body>
+</html>
