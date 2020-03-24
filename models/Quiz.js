@@ -6,6 +6,7 @@ var QuizSchema = new mongoose.Schema({
   image_url: String,
   question: [Schema.Types.Mixed],
   publish: Boolean,
+  auther: { type: Number, default: 1 },
   updated_at: { type: Date, default: Date.now },
 });
 

@@ -9,12 +9,9 @@ mongoose.Promise = global.Promise;
 const dotenv = require('dotenv');
 dotenv.config();
 
-mongoose.connect(process.env.DBURL ,{ useNewUrlParser: true ,useUnifiedTopology: true })
-  .then(() =>  console.log('connection succesful'))
-  .catch((err) => console.error(err));
+module.exports = function createApp() {
 
 const ApiRoutes=['quizs','users'];
-
 var index = require('./routes/index');
 var users = require('./routes/users');
 var quizs = require('./routes/quizs');
@@ -59,4 +56,8 @@ app.use(function(err, req, res, next) {
   res.render('error');
 });
 
-module.exports = app;
+mongoose.Promise = global.Promise
+return mongoose.connect(process.env.DBURL ,{ useNewUrlParser: true ,useUnifiedTopology: true })
+  .then(() =>  app)
+  .catch((err) => console.error(err));
+}

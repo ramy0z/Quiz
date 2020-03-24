@@ -47,7 +47,8 @@ quizController.save = async function(req, res) {
   if (!req.file) {res.status(401).json({error: 'Please provide an image'});}
   
   const filename = await fileUpload.save(req.file.buffer);
-  req.body['image_url']='/public/uploads/'+filename;
+  req.body['image_url']='/uploads/'+filename;
+  req.body['question']=JSON.parse(req.body['question']);
   var quiz = new Quiz(req.body);
   quiz.save(function(err) {
     if(err) {

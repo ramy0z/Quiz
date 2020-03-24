@@ -224,3 +224,23 @@ input:checked + .slider:before {
 .slider.round:before {
   border-radius: 50%;
 }
+
+.error.valid ,.form-control.success input, .form-control.success select, .form-control.success textarea {
+  border-color: #468847;
+  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+  -moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+}
+
+.error.valid ,.form-control.success .checkbox, .form-control.success .radio, .form-control.success input, .form-control.success select, .form-control.success textarea {
+  color: #468847;
+}
+.error, .error input, .form-control.error select, .form-control.error textarea {
+  border-color: #b94a48;
+  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+  -moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+}
+.error, .form-control.error .checkbox, .form-control.error .radio, .form-control.error input, .form-control.error select, .form-control.error textarea {
+  color: #b94a48;
+}

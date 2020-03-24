@@ -10,6 +10,10 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
     integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
+  <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+  integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+  crossorigin="anonymous"></script>
+
 </head>
 
 <body style="background-color:whitesmoke !important;">
@@ -43,7 +47,7 @@
           <a href="/quizs/show/<%= quizs[i]._id%>">
             <div class="card category" data-id="animals">
               <% if( quizs[i].image_url != '') { %>
-                 <div class="img" style="background-image:url('(<%=URL%><%=quizs[i].image_url%>')"></div>
+                 <div class="img" style="background-image:url('..<%=quizs[i].image_url%>')"></div>
               <% }else{ %>
                 <div class="img" style="background-image:url('../assets/images/placeholder.png')"></div>
               <% } %>
@@ -587,6 +591,17 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
     integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
     crossorigin="anonymous"></script>
+<script>
+  $(document).ready(function(){
+      $("img").each(function(){
+          var imgObj = $(this);
+          var img = new Image();
+          img.onerror=function(){ imgObj.attr('src','/assets/images/placeholder.png'); }
+          img.src = imgObj.attr('src');
+      });
+  });
+</script>
+
 </body>
 
 </html>
