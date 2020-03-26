@@ -11,16 +11,18 @@
     integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
   <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
-  integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
-  crossorigin="anonymous"></script>
+    integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+    crossorigin="anonymous"></script>
 
 </head>
 
 <body style="background-color:whitesmoke !important;">
   <!-- Image and text -->
   <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
-    <a class="navbar-brand" href="#"><img class="mr-3" src="../assets/images/QuizUp_Logo.png" alt="" width="150" height="48"></a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+    <a class="navbar-brand" href="#"><img class="mr-3" src="../assets/images/QuizUp_Logo.png" alt="" width="150"
+        height="48"></a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse"
+      aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
     <form class="form-inline">
@@ -36,571 +38,71 @@
     </div>
 
     <div class="row">
-     
+
     </div>
-  <div class="quiz-templates">
-    <div class="container">
-      <div class="row">
-      <% if(quizs.length>0) { %>
-        <% for(var i=0; i<quizs.length;i++) { %>
-        <div class="col-md-4 col-sm-6">
-          <a href="/quizs/show/<%= quizs[i]._id%>">
-            <div class="card category" data-id="animals">
-              <% if( quizs[i].image_url != '') { %>
-                 <div class="img" style="background-image:url('..<%=quizs[i].image_url%>')"></div>
-              <% }else{ %>
+    <div class="quiz-templates">
+      <div class="container">
+        <div class="row">
+          <% if(quizs.length>0) { %>
+          <% for(var i=0; i<quizs.length;i++) { %>
+          <div class="col-md-4 col-sm-6">
+            <a href="/quizs/show/<%= quizs[i]._id%>">
+              <div class="card category" data-id="animals">
+                <% if( quizs[i].image_url != ''&&quizs[i].image_url != null) { %>
+                <div class="img" style="background-image:url('..<%=quizs[i].image_url%>')"></div>
+                <% }else{ %>
                 <div class="img" style="background-image:url('../assets/images/placeholder.png')"></div>
-              <% } %>
-              <div class="content">
-                <h6 class="text"><%= quizs[i].name%></h6>
-                <p class="subtext"><%= quizs[i].question.length%> Question available</p>
+                <% } %>
+                <div class="content">
+                  <h6 class="text"><%= quizs[i].name%></h6>
+
+                  <% if( quizs[i].question != null && quizs[i].question != '') { %>
+                  <p class="subtext"><%= quizs[i].question.length%> Question available</p>
+                  <% }else{ %>
+                  <p class="subtext">No Question available</p>
+                  <% } %>
+
+                  <% if( quizs[i].publish == "on") { %>
+                    <div class="text-success"> Published</div>
+                 <% }else{ %>
+                  <div class="text-danger"> Not Published !</div>
+                 <% } %>
+                </div>
               </div>
-            </div>
-          </a>
+            </a>
 
-        </div>
-        <% } %>
-        </tbody>
-        </table>
-      <% } else { %>
-        <div>No quizs found.</div>
-      <% } %>
-      </div>
-
-
-      
-      <div class="row">
-        <div class="col-md-4 col-sm-6">
-          <div class="card category" data-id="animals">
-            <div class="img"
-              style="background-image:url(https://s3-us-west-1.amazonaws.com/tryinteract-misc/template_categories/animals.jpg);">
-            </div>
-            <div class="content">
-              <h3 class="text">Animals</h3>
-              <p class="subtext">51 templates available</p>
-            </div>
           </div>
-        </div>
-        <div class="col-md-4 col-sm-6">
-          <div class="card category" data-id="automotive">
-            <div class="img"
-              style="background-image:url(https://s3-us-west-1.amazonaws.com/tryinteract-misc/template_categories/automotive.jpg);">
-            </div>
-            <div class="content">
-              <h3 class="text">Automotive</h3>
-              <p class="subtext">7 templates available</p>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-4 col-sm-6">
-          <div class="card category" data-id="beauty">
-            <div class="img"
-              style="background-image:url(https://s3-us-west-1.amazonaws.com/tryinteract-misc/template_categories/beauty.jpg);">
-            </div>
-            <div class="content">
-              <h3 class="text">Beauty</h3>
-              <p class="subtext">18 templates available</p>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-4 col-sm-6">
-          <div class="card category" data-id="blogging">
-            <div class="img"
-              style="background-image:url(https://s3-us-west-1.amazonaws.com/tryinteract-misc/template_categories/blogging.jpg);">
-            </div>
-            <div class="content">
-              <h3 class="text">Blogging</h3>
-              <p class="subtext">8 templates available</p>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-4 col-sm-6">
-          <div class="card category" data-id="books">
-            <div class="img"
-              style="background-image:url(https://s3-us-west-1.amazonaws.com/tryinteract-misc/template_categories/books.jpg);">
-            </div>
-            <div class="content">
-              <h3 class="text">Books</h3>
-              <p class="subtext">31 templates available</p>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-4 col-sm-6">
-          <div class="card category" data-id="branding">
-            <div class="img"
-              style="background-image:url(https://s3-us-west-1.amazonaws.com/tryinteract-misc/template_categories/branding.jpg);">
-            </div>
-            <div class="content">
-              <h3 class="text">Branding</h3>
-              <p class="subtext">14 templates available</p>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-4 col-sm-6">
-          <div class="card category" data-id="bridal">
-            <div class="img"
-              style="background-image:url(https://s3-us-west-1.amazonaws.com/tryinteract-misc/template_categories/bridal.jpg);">
-            </div>
-            <div class="content">
-              <h3 class="text">Bridal</h3>
-              <p class="subtext">9 templates available</p>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-4 col-sm-6">
-          <div class="card category" data-id="business">
-            <div class="img"
-              style="background-image:url(https://s3-us-west-1.amazonaws.com/tryinteract-misc/template_categories/business.jpg);">
-            </div>
-            <div class="content">
-              <h3 class="text">Business</h3>
-              <p class="subtext">20 templates available</p>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-4 col-sm-6">
-          <div class="card category" data-id="career">
-            <div class="img"
-              style="background-image:url(https://s3-us-west-1.amazonaws.com/tryinteract-misc/template_categories/career.jpg);">
-            </div>
-            <div class="content">
-              <h3 class="text">Career</h3>
-              <p class="subtext">38 templates available</p>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-4 col-sm-6">
-          <div class="card category" data-id="coaching">
-            <div class="img"
-              style="background-image:url(https://s3-us-west-1.amazonaws.com/tryinteract-misc/template_categories/coaching.jpg);">
-            </div>
-            <div class="content">
-              <h3 class="text">Coaching</h3>
-              <p class="subtext">30 templates available</p>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-4 col-sm-6">
-          <div class="card category" data-id="education">
-            <div class="img"
-              style="background-image:url(https://s3-us-west-1.amazonaws.com/tryinteract-misc/template_categories/education.jpg);">
-            </div>
-            <div class="content">
-              <h3 class="text">Education</h3>
-              <p class="subtext">9 templates available</p>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-4 col-sm-6">
-          <div class="card category" data-id="entertainment">
-            <div class="img"
-              style="background-image:url(https://s3-us-west-1.amazonaws.com/tryinteract-misc/template_categories/entertainment.jpg);">
-            </div>
-            <div class="content">
-              <h3 class="text">Entertainment</h3>
-              <p class="subtext">17 templates available</p>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-4 col-sm-6">
-          <div class="card category" data-id="entrepreneur">
-            <div class="img"
-              style="background-image:url(https://s3-us-west-1.amazonaws.com/tryinteract-misc/template_categories/entrepreneur.jpg);">
-            </div>
-            <div class="content">
-              <h3 class="text">Entrepreneur</h3>
-              <p class="subtext">28 templates available</p>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-4 col-sm-6">
-          <div class="card category" data-id="family-parenting">
-            <div class="img"
-              style="background-image:url(https://s3-us-west-1.amazonaws.com/tryinteract-misc/template_categories/family-parenting.jpg);">
-            </div>
-            <div class="content">
-              <h3 class="text">Family &amp; Parenting</h3>
-              <p class="subtext">9 templates available</p>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-4 col-sm-6">
-          <div class="card category" data-id="fantasy">
-            <div class="img"
-              style="background-image:url(https://s3-us-west-1.amazonaws.com/tryinteract-misc/template_categories/fantasy.jpg);">
-            </div>
-            <div class="content">
-              <h3 class="text">Fantasy</h3>
-              <p class="subtext">6 templates available</p>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-4 col-sm-6">
-          <div class="card category" data-id="fashion">
-            <div class="img"
-              style="background-image:url(https://s3-us-west-1.amazonaws.com/tryinteract-misc/template_categories/fashion.jpg);">
-            </div>
-            <div class="content">
-              <h3 class="text">Fashion</h3>
-              <p class="subtext">18 templates available</p>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-4 col-sm-6">
-          <div class="card category" data-id="finance">
-            <div class="img"
-              style="background-image:url(https://s3-us-west-1.amazonaws.com/tryinteract-misc/template_categories/finance.jpg);">
-            </div>
-            <div class="content">
-              <h3 class="text">Finance</h3>
-              <p class="subtext">22 templates available</p>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-4 col-sm-6">
-          <div class="card category" data-id="food-drink">
-            <div class="img"
-              style="background-image:url(https://s3-us-west-1.amazonaws.com/tryinteract-misc/template_categories/food-drink.jpg);">
-            </div>
-            <div class="content">
-              <h3 class="text">Food &amp; Drink</h3>
-              <p class="subtext">40 templates available</p>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-4 col-sm-6">
-          <div class="card category" data-id="health-fitness">
-            <div class="img"
-              style="background-image:url(https://s3-us-west-1.amazonaws.com/tryinteract-misc/template_categories/health-fitness.jpg);">
-            </div>
-            <div class="content">
-              <h3 class="text">Health &amp; Fitness</h3>
-              <p class="subtext">33 templates available</p>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-4 col-sm-6">
-          <div class="card category" data-id="history">
-            <div class="img"
-              style="background-image:url(https://s3-us-west-1.amazonaws.com/tryinteract-misc/template_categories/history.jpg);">
-            </div>
-            <div class="content">
-              <h3 class="text">History</h3>
-              <p class="subtext">13 templates available</p>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-4 col-sm-6">
-          <div class="card category" data-id="holiday">
-            <div class="img"
-              style="background-image:url(https://s3-us-west-1.amazonaws.com/tryinteract-misc/template_categories/holiday.jpg);">
-            </div>
-            <div class="content">
-              <h3 class="text">Holiday</h3>
-              <p class="subtext">18 templates available</p>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-4 col-sm-6">
-          <div class="card category" data-id="home-garden">
-            <div class="img"
-              style="background-image:url(https://s3-us-west-1.amazonaws.com/tryinteract-misc/template_categories/home-garden.jpg);">
-            </div>
-            <div class="content">
-              <h3 class="text">Home &amp; Garden</h3>
-              <p class="subtext">17 templates available</p>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-4 col-sm-6">
-          <div class="card category" data-id="interior-design">
-            <div class="img"
-              style="background-image:url(https://s3-us-west-1.amazonaws.com/tryinteract-misc/template_categories/interior-design.jpg);">
-            </div>
-            <div class="content">
-              <h3 class="text">Interior Design</h3>
-              <p class="subtext">26 templates available</p>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-4 col-sm-6">
-          <div class="card category" data-id="leadership">
-            <div class="img"
-              style="background-image:url(https://s3-us-west-1.amazonaws.com/tryinteract-misc/template_categories/leadership.jpg);">
-            </div>
-            <div class="content">
-              <h3 class="text">Leadership</h3>
-              <p class="subtext">12 templates available</p>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-4 col-sm-6">
-          <div class="card category" data-id="lifestyle">
-            <div class="img"
-              style="background-image:url(https://s3-us-west-1.amazonaws.com/tryinteract-misc/template_categories/lifestyle.jpg);">
-            </div>
-            <div class="content">
-              <h3 class="text">Lifestyle</h3>
-              <p class="subtext">34 templates available</p>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-4 col-sm-6">
-          <div class="card category" data-id="marketing">
-            <div class="img"
-              style="background-image:url(https://s3-us-west-1.amazonaws.com/tryinteract-misc/template_categories/marketing.jpg);">
-            </div>
-            <div class="content">
-              <h3 class="text">Marketing</h3>
-              <p class="subtext">9 templates available</p>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-4 col-sm-6">
-          <div class="card category" data-id="music">
-            <div class="img"
-              style="background-image:url(https://s3-us-west-1.amazonaws.com/tryinteract-misc/template_categories/music.jpg);">
-            </div>
-            <div class="content">
-              <h3 class="text">Music</h3>
-              <p class="subtext">13 templates available</p>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-4 col-sm-6">
-          <div class="card category" data-id="nature">
-            <div class="img"
-              style="background-image:url(https://s3-us-west-1.amazonaws.com/tryinteract-misc/template_categories/nature.jpg);">
-            </div>
-            <div class="content">
-              <h3 class="text">Nature</h3>
-              <p class="subtext">13 templates available</p>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-4 col-sm-6">
-          <div class="card category" data-id="photography">
-            <div class="img"
-              style="background-image:url(https://s3-us-west-1.amazonaws.com/tryinteract-misc/template_categories/photography.jpg);">
-            </div>
-            <div class="content">
-              <h3 class="text">Photography</h3>
-              <p class="subtext">11 templates available</p>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-4 col-sm-6">
-          <div class="card category" data-id="productivity">
-            <div class="img"
-              style="background-image:url(https://s3-us-west-1.amazonaws.com/tryinteract-misc/template_categories/productivity.jpg);">
-            </div>
-            <div class="content">
-              <h3 class="text">Productivity</h3>
-              <p class="subtext">11 templates available</p>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-4 col-sm-6">
-          <div class="card category" data-id="psychology">
-            <div class="img"
-              style="background-image:url(https://s3-us-west-1.amazonaws.com/tryinteract-misc/template_categories/psychology.jpg);">
-            </div>
-            <div class="content">
-              <h3 class="text">Psychology</h3>
-              <p class="subtext">17 templates available</p>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-4 col-sm-6">
-          <div class="card category" data-id="relationships">
-            <div class="img"
-              style="background-image:url(https://s3-us-west-1.amazonaws.com/tryinteract-misc/template_categories/relationships.jpg);">
-            </div>
-            <div class="content">
-              <h3 class="text">Relationships</h3>
-              <p class="subtext">28 templates available</p>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-4 col-sm-6">
-          <div class="card category" data-id="religion">
-            <div class="img"
-              style="background-image:url(https://s3-us-west-1.amazonaws.com/tryinteract-misc/template_categories/religion.jpg);">
-            </div>
-            <div class="content">
-              <h3 class="text">Religion</h3>
-              <p class="subtext">6 templates available</p>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-4 col-sm-6">
-          <div class="card category" data-id="science">
-            <div class="img"
-              style="background-image:url(https://s3-us-west-1.amazonaws.com/tryinteract-misc/template_categories/science.jpg);">
-            </div>
-            <div class="content">
-              <h3 class="text">Science</h3>
-              <p class="subtext">9 templates available</p>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-4 col-sm-6">
-          <div class="card category" data-id="self-improvement">
-            <div class="img"
-              style="background-image:url(https://s3-us-west-1.amazonaws.com/tryinteract-misc/template_categories/self-improvement.jpg);">
-            </div>
-            <div class="content">
-              <h3 class="text">Self Improvement</h3>
-              <p class="subtext">38 templates available</p>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-4 col-sm-6">
-          <div class="card category" data-id="skin-care">
-            <div class="img"
-              style="background-image:url(https://s3-us-west-1.amazonaws.com/tryinteract-misc/template_categories/skin-care.jpg);">
-            </div>
-            <div class="content">
-              <h3 class="text">Skin Care</h3>
-              <p class="subtext">12 templates available</p>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-4 col-sm-6">
-          <div class="card category" data-id="social-media">
-            <div class="img"
-              style="background-image:url(https://s3-us-west-1.amazonaws.com/tryinteract-misc/template_categories/social-media.jpg);">
-            </div>
-            <div class="content">
-              <h3 class="text">Social Media</h3>
-              <p class="subtext">15 templates available</p>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-4 col-sm-6">
-          <div class="card category" data-id="spirituality">
-            <div class="img"
-              style="background-image:url(https://s3-us-west-1.amazonaws.com/tryinteract-misc/template_categories/spirituality.jpg);">
-            </div>
-            <div class="content">
-              <h3 class="text">Spirituality</h3>
-              <p class="subtext">14 templates available</p>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-4 col-sm-6">
-          <div class="card category" data-id="style">
-            <div class="img"
-              style="background-image:url(https://s3-us-west-1.amazonaws.com/tryinteract-misc/template_categories/style.jpg);">
-            </div>
-            <div class="content">
-              <h3 class="text">Style</h3>
-              <p class="subtext">13 templates available</p>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-4 col-sm-6">
-          <div class="card category" data-id="sustainability">
-            <div class="img"
-              style="background-image:url(https://s3-us-west-1.amazonaws.com/tryinteract-misc/template_categories/sustainability.jpg);">
-            </div>
-            <div class="content">
-              <h3 class="text">Sustainability</h3>
-              <p class="subtext">11 templates available</p>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-4 col-sm-6">
-          <div class="card category" data-id="technology">
-            <div class="img"
-              style="background-image:url(https://s3-us-west-1.amazonaws.com/tryinteract-misc/template_categories/technology.jpg);">
-            </div>
-            <div class="content">
-              <h3 class="text">Technology</h3>
-              <p class="subtext">10 templates available</p>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-4 col-sm-6">
-          <div class="card category" data-id="travel">
-            <div class="img"
-              style="background-image:url(https://s3-us-west-1.amazonaws.com/tryinteract-misc/template_categories/travel.jpg);">
-            </div>
-            <div class="content">
-              <h3 class="text">Travel</h3>
-              <p class="subtext">47 templates available</p>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-4 col-sm-6">
-          <div class="card category" data-id="wedding">
-            <div class="img"
-              style="background-image:url(https://s3-us-west-1.amazonaws.com/tryinteract-misc/template_categories/wedding.jpg);">
-            </div>
-            <div class="content">
-              <h3 class="text">Wedding</h3>
-              <p class="subtext">19 templates available</p>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-4 col-sm-6">
-          <div class="card category" data-id="wellness">
-            <div class="img"
-              style="background-image:url(https://s3-us-west-1.amazonaws.com/tryinteract-misc/template_categories/wellness.jpg);">
-            </div>
-            <div class="content">
-              <h3 class="text">Wellness</h3>
-              <p class="subtext">29 templates available</p>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-4 col-sm-6">
-          <div class="card category" data-id="writing">
-            <div class="img"
-              style="background-image:url(https://s3-us-west-1.amazonaws.com/tryinteract-misc/template_categories/writing.jpg);">
-            </div>
-            <div class="content">
-              <h3 class="text">Writing</h3>
-              <p class="subtext">9 templates available</p>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-4 col-sm-6">
-          <div class="card category" data-id="zodiac">
-            <div class="img"
-              style="background-image:url(https://s3-us-west-1.amazonaws.com/tryinteract-misc/template_categories/zodiac.jpg);">
-            </div>
-            <div class="content">
-              <h3 class="text">Zodiac</h3>
-              <p class="subtext">7 templates available</p>
-            </div>
-          </div>
+          <% } %>
+          </tbody>
+          </table>
+          <% } else { %>
+          <div>No quizs found.</div>
+          <% } %>
         </div>
       </div>
     </div>
-  </div>
-
-  <!-- Optional JavaScript -->
-  <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
-    integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
-    crossorigin="anonymous"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
-    integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
-    crossorigin="anonymous"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
-    integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
-    crossorigin="anonymous"></script>
-<script>
-  $(document).ready(function(){
-      $("img").each(function(){
+    </div>
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+      integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+      crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+      integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+      crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+      integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+      crossorigin="anonymous"></script>
+    <script>
+      $(document).ready(function () {
+        $("img").each(function () {
           var imgObj = $(this);
           var img = new Image();
-          img.onerror=function(){ imgObj.attr('src','/assets/images/placeholder.png'); }
+          img.onerror = function () { imgObj.attr('src', '/assets/images/placeholder.png'); }
           img.src = imgObj.attr('src');
+        });
       });
-  });
-</script>
+    </script>
 
 </body>
 

@@ -8,11 +8,17 @@
   <!-- Bootstrap CSS -->
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
     integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+  
+    
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
     integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
     crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.1/dist/jquery.validate.min.js"></script>
+
+  <link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
+  <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
+
 
 </head>
 
@@ -30,7 +36,7 @@
   </nav>
   <div class="container">
     <div style="margin-top: 5rem;">
-      <form action="/quizs/save" method="post" enctype="multipart/form-data">
+      <form action="/quizs/update/<%=quiz._id%>" method="post" >
         <div class="row">
           <div class="col-sm-12 col-md-6 col-lg-6">
             <div class="card">
@@ -41,16 +47,21 @@
                 <div class="row">
                   <div class="col-sm-4 col-md-4 col-lg-2">Name</div>
                   <div class="col-sm-12 col-md-12 col-lg-6"><input chars="latin-alpha-numeric" type="text" name="name"
-                      class="form-control" maxlength="50" /></div>
-                  <div class="col-sm-4 col-md-4 col-lg-2" style="margin-top: 10px;">Publish</div>
-                  <div class="col-sm-4 col-md-4 col-lg-2" style="margin-top: 10px;"><label class="switch"><input
-                        class="form-control" type="checkbox" name="publish"><span class="slider round"></span></label>
+                    value="<%= quiz.name%>"  class="form-control" maxlength="100" /></div>
+                    
+                  <div class="col-sm-8 col-md-8 col-lg-4">
+                    <input type="text" class="form-control" hidden id="publish" name="publish" value="<%= quiz.publish%>"/>
+                    <input type="checkbox"
+                    data-toggle="toggle" data-onstyle="success" id="publishCheckbox"  data-on="Published" data-off="Not Published!"  
+                    <% if( quiz.publish == "on") { %>checked <% }%>
+
+                    />
                   </div>
                 </div>
                 <div class="row">
-                  <div class="col-sm-12 col-md-6 col-lg-6">
-                    <img id="preview" src="../assets/images/placeholder.png" alt="your image"
-                      style="width: 300px;height: 250px;height: 250px;border: 1px dashed;border-radius: 20px;" />
+                  <div class="col-sm-12 col-md-6 col-lg-6" style="margin: 20px;">
+                    <img id="preview" src="<%= quiz.image_url%>" alt="your image" 
+                        style="width: 300px;height: 250px;height: 250px;border: 1px dashed;border-radius: 20px;" />
                     <input type="file" id="image_url" name="image_url" />
                   </div>
                 </div>
@@ -68,21 +79,21 @@
             <div class="card">
               <div class="card-header">
                 Quiz Questions
-                <button type="button" style="float: right;" id="myModal" class="btn btn-primary" data-toggle="modal"
+                <button type="button" style="float: right;" id="questionModal" class="btn btn-info" data-toggle="modal"
                   data-target="#questionModel">
                   New Question
                 </button>
               </div>
               <div class="card-body" style="height: 400px;overflow-y: auto;">
                 <div id="questionList" class="list-group">
-                  <% if(quiz.question.length>0) { %>
+                  <% if(quiz.question!=''&quiz.question!=null  && quiz.question.length>0) { %>
                     <% for(var i=0; i<quiz.question.length;i++) { %>
-                      <div class="row" style="margin-bottom: 10px;"><a href="#" class="<%=i%> questionItem list-group-item list-group-item-action col-12"><%=quiz.question[i].questionName%></a>
-                        <!-- <button type="button" class="<%=i%> btn btn-outline-danger removeItem col-2">
+                      <div class="row" style="margin-bottom: 10px;"><a href="#" class="<%=i%> questionItem list-group-item list-group-item-action col-10"><%=quiz.question[i].questionName%></a>
+                        <button type="button" class="<%=i%> btn btn-outline-danger removeItem col-2">
                           <svg class="bi bi-archive-fill " width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                             <path fill-rule="evenodd" d="M12.643 15C13.979 15 15 13.845 15 12.5V5H1v7.5C1 13.845 2.021 15 3.357 15h9.286zM6 7a.5.5 0 000 1h4a.5.5 0 000-1H6zM.8 1a.8.8 0 00-.8.8V3a.8.8 0 00.8.8h14.4A.8.8 0 0016 3V1.8a.8.8 0 00-.8-.8H.8z" clip-rule="evenodd"/>
                             </svg>
-                        </button> -->
+                        </button>
                       </div>
                     <% } %>
                   <% } else { %>
@@ -96,13 +107,18 @@
                 <div class="col-12" style="text-align: center;vertical-align: middle;
                     justify-content: center;">
                   <span>Number Of Question : </span>
-                  <span id="questionNumber" class="text-success" style="font-size: 25px;"><%=quiz.question.length%></span>
+                  <span id="questionNumber" class="text-success" style="font-size: 25px;">
+                   
+                    <% if(quiz.question!='' &quiz.question!=null) {  quiz.question.length } %>
+                   
+                  </span>
                 </div>
               </div>
             </div>
           </div>
-          <div class="col-12" style="text-align: center; margin-top: 20px"><button type="submit"
-              style="width: 300px;height: 50px;" class="btn btn-success">Save</button></div>
+          <div class="col-12" style="text-align: center; margin-top: 20px">
+            <button type="submit" style="width: 300px;height: 50px;" class="btn btn-success">Save</button>
+          </div>
       </form>
     </div>
 
@@ -165,12 +181,16 @@
       reader.readAsDataURL(input.files[0]);
     }
   }
-  ejs.render('<% var =questionArr quiz.question%>'); var questionEditMode = false;
-  $("#image_url").change(function () {
+  var questionObj={...JSON.parse('<%- JSON.stringify(quiz.question) %>')};
+  $("#question").val(JSON.stringify(Object.values(questionObj)));
+
+  var questionEditMode = false;
+
+  $(document).on('click', '#image_url', function () {
     readURL(this);
   });
 
-  $('#myModal').on('click', function () {
+  $('#questionModal').on('click', function () {
     $("#questionForm .form-control").val('');// rest controls
     $("#questionForm .error.valid").hide(); // rest validation
     questionEditMode = false;//rest edit mode
@@ -186,40 +206,40 @@
 
     let itemIndex = $(this).attr('class').split(' ')[0];
     $('#questionForm').removeAttr('class'); $('#questionForm').addClass(itemIndex);
-    $("#question").val(JSON.stringify(questionArr));
+    $("#question").val(JSON.stringify(Object.values(questionObj)));
 
-    let questionObj = questionArr[itemIndex];
-    let questionName = $("#questionName").val(questionObj['questionName']).change();
-    let ans0 = $("#ans0").val(questionObj['ans0']).change();
-    let ans1 = $("#ans1").val(questionObj['ans1']).change();
-    let ans2 = $("#ans2").val(questionObj['ans2']).change();
-    let ans3 = $("#ans3").val(questionObj['ans3']).change();
+    let questObj = questionObj[itemIndex];
+    let questionName = $("#questionName").val(questObj['questionName']).change();
+    let ans0 = $("#ans0").val(questObj['ans0']).change();
+    let ans1 = $("#ans1").val(questObj['ans1']).change();
+    let ans2 = $("#ans2").val(questObj['ans2']).change();
+    let ans3 = $("#ans3").val(questObj['ans3']).change();
+
     $('#questionModel').modal('toggle');
-
-    console.log(questionArr[itemIndex]);
+    console.log(questObj[itemIndex]);
   });
 
   // remove item from question list
   $(document).on('click', '.removeItem', function () {
     let itemIndex = $(this).attr('class').split(' ')[0];
     if (itemIndex > -1) {
-      questionArr.splice(itemIndex, 1);
-      $("#question").val(JSON.stringify(questionArr));
-      (questionArr.length == 0) ? $("#questionNumber").html('0') : $("#questionNumber").html(questionArr.length);
+      delete questionObj[itemIndex];
+      $("#question").val(JSON.stringify(Object.values(questionObj))); // save Rest Json in Hidden Input
+
       $(this).parent().remove();
+      let questObjLengh=Object.keys(questionObj).length;
+      (questObjLengh == 0) ? $("#questionNumber").html('0') : $("#questionNumber").html(questObjLengh);
     }
 
-    console.log(questionArr);
+    console.log(questionObj);
   });
 
   // on save question 
   $('#btnSaveQuestion').on('click', function () {
     let questionName = $("#questionName").val();
-    let ans0 = $("#ans0").val();
-    let ans1 = $("#ans1").val();
-    let ans2 = $("#ans2").val();
-    let ans3 = $("#ans3").val();
-    let questonObj = {}
+    let ans0 = $("#ans0").val();    let ans1 = $("#ans1").val();
+    let ans2 = $("#ans2").val();    let ans3 = $("#ans3").val();
+    let questObj = {}
     if (questionName == '' || ans0 == '' || ans1 == '' || ans2 == '' || ans3 == '') {
       alert("Please Fill Require Fields");
     }
@@ -227,36 +247,34 @@
       alert("Please check Length Require Fields");
     }
     else {
-      questonObj['questionName'] = questionName;
-      questonObj['ans0'] = ans0;
-      questonObj['ans1'] = ans1;
-      questonObj['ans2'] = ans2;
-      questonObj['ans3'] = ans3;
+      questObj['questionName'] = questionName;
+      questObj['ans0'] = ans0;    questObj['ans1'] = ans1;
+      questObj['ans2'] = ans2;    questObj['ans3'] = ans3;
 
       if (questionEditMode) {
         //  In the Edit Mode
         let itemIndex = $("#questionForm").attr("class");
-        questionArr[itemIndex] = questonObj;
+        questionObj[itemIndex] = questObj;
         $("." + itemIndex + ".questionItem").html(questionName);
         //rest edit mode
         questionEditMode = false;
       }
       else {
         //Add New Question
-
-        let html = `<div class="row" style="margin-bottom: 10px;"><a href="#" class="${questionArr.length} questionItem list-group-item list-group-item-action col-10">${questionName}</a>
-          <button type="button" class="${questionArr.length} btn btn-outline-danger removeItem col-2">
+        let questObjLengh=Object.keys(questionObj).length;
+        let html = `<div class="row" style="margin-bottom: 10px;"><a href="#" class="${questObjLengh} questionItem list-group-item list-group-item-action col-10">${questionName}</a>
+          <button type="button" class="${questObjLengh} btn btn-outline-danger removeItem col-2">
             <svg class="bi bi-archive-fill " width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
               <path fill-rule="evenodd" d="M12.643 15C13.979 15 15 13.845 15 12.5V5H1v7.5C1 13.845 2.021 15 3.357 15h9.286zM6 7a.5.5 0 000 1h4a.5.5 0 000-1H6zM.8 1a.8.8 0 00-.8.8V3a.8.8 0 00.8.8h14.4A.8.8 0 0016 3V1.8a.8.8 0 00-.8-.8H.8z" clip-rule="evenodd"/>
               </svg></button></div>`;
-        if (questionArr.length == 0) {
+        if (questObjLengh == 0) {
           $('#questionList').html(html); $("#questionNumber").html(1);
         }
-        else { $('#questionList').append(html); $("#questionNumber").html(questionArr.length + 1); }
+        else { $('#questionList').append(html); $("#questionNumber").html(questObjLengh + 1); }
 
-        questionArr.push(questonObj);
+        questionObj[questObjLengh]=questObj;
       }
-      $("#question").val(JSON.stringify(questionArr));
+      $("#question").val(JSON.stringify(Object.values(questionObj) ));
 
       // rest controls and close model
       $("#questionForm .form-control").val('');// rest controls
@@ -295,7 +313,7 @@
         'letters': 'A-Za-z\\s',
         'email': '\\wÑñ@._\\-',
         'alpha-numeric': '\\w\\s',
-        'latin-alpha-numeric': '\\w\\[\u0600-\u06ff]|[\u0750-\u077f]|[\ufb50-\ufc3f]|[\ufe70-\ufefc]',
+        'latin-alpha-numeric': '\\?\\ \\,\\w\\[\u0600-\u06ff]|[\u0750-\u077f]|[\ufb50-\ufc3f]|[\ufe70-\ufefc]',
 
       },
       filter = preset[$elem.attr('chars')] || $elem.attr('chars');
@@ -306,12 +324,19 @@
   });
 
   $(document).ready(function () {
+    
+    ('<%=quiz.publish%>'=='on')?$('#publishCheckbox').bootstrapToggle('on'):$('#publishCheckbox').bootstrapToggle('off');
+
     $("img").each(function () {
       var imgObj = $(this);
       var img = new Image();
       img.onerror = function () { imgObj.attr('src', '/assets/images/placeholder.png'); }
       img.src = imgObj.attr('src');
     });
+    $(document).on('change', '#publishCheckbox', function () {
+      ($('#publishCheckbox').is(":checked")) ?$('#publish').val('on').change():$('#publish').val('off').change();
+    });
+    
   });
 </script>
 
